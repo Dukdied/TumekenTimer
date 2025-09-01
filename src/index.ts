@@ -101,6 +101,7 @@ if (window.alt1) {
 
 } else {
 	let addappurl = `alt1://addapp/${new URL("./appconfig.json", document.location.href).href}`;
+	
 	output.insertAdjacentHTML("beforeend", `
 		Alt1 not detected, click <a href='${addappurl}'>here</a> to add this app to Alt1
 	`);
