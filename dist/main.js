@@ -4293,9 +4293,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_html__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.html */ "./index.html");
 /* harmony import */ var _appconfig_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./appconfig.json */ "./appconfig.json");
 /* harmony import */ var _icon_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./icon.png */ "./icon.png");
-/* harmony import */ var _timer_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./timer.js */ "./timer.js");
-/* harmony import */ var _jquery_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./jquery.js */ "./jquery.js");
-/* harmony import */ var _jquery_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_jquery_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _jquery_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./jquery.js */ "./jquery.js");
+/* harmony import */ var _jquery_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_jquery_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _timer_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./timer.js */ "./timer.js");
 // alt1 base libs, provides all the commonly used methods for image matching and capture
 // also gives your editor info about the window.alt1 api
 
@@ -4308,7 +4308,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var output = document.getElementById("output");
+
+_jquery_js__WEBPACK_IMPORTED_MODULE_5__(document).ready(function () {
+    if (window.alt1) {
+        // alt1.identifyAppUrl("./appconfig.json");
+        var timer = document.getElementById("beam_timer");
+        timer.innerText = '0.0s';
+    }
+    else {
+        var addappurl = "alt1://addapp/".concat(new URL("./appconfig.json", document.location.href).href);
+        var output = document.getElementById("output");
+        console.log(output);
+        output.innerHTML = "Alt1 not detected, click <a href='".concat(addappurl, "'>here</a> to add this app to Alt1");
+    }
+});
+
+var beamTimer = new _timer_js__WEBPACK_IMPORTED_MODULE_6__._timer(function (time) {
+    var secs_left = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
+    _jquery_js__WEBPACK_IMPORTED_MODULE_5__("#beam_timer").html(secs_left + "s");
+    if (time <= 0) {
+        beamTimer.stop();
+    }
+});
 var appColor = alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor(0, 255, 0);
 var reader = new (alt1_chatbox__WEBPACK_IMPORTED_MODULE_1___default())();
 var latestSnuffed = "00:00:00";
@@ -4362,25 +4383,9 @@ function snuffThemOut(lines) {
         }
     }
 }
-
-
-var beamTimer = new _timer_js__WEBPACK_IMPORTED_MODULE_5__._timer(function (time) {
-    var secs_left = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
-    _jquery_js__WEBPACK_IMPORTED_MODULE_6__("#beam_timer").html(secs_left + "s");
-    if (time <= 0) {
-        beamTimer.stop();
-    }
-});
 function readChatbox() {
     var opts = reader.read() || [];
     snuffThemOut(opts);
-}
-if (window.alt1) {
-    alt1.identifyAppUrl("./appconfig.json");
-}
-else {
-    var addappurl = "alt1://addapp/".concat(new URL("./appconfig.json", document.location.href).href);
-    output.insertAdjacentHTML("beforeend", "\n\t\tAlt1 not detected, click <a href='".concat(addappurl, "'>here</a> to add this app to Alt1\n\t"));
 }
 
 })();

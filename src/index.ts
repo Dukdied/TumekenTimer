@@ -11,9 +11,30 @@ import * as ChatBoxReader from "alt1/chatbox"
 import "./index.html";
 import "./appconfig.json";
 import "./icon.png";
+import * as $ from "./jquery.js";
 
 
-var output = document.getElementById("output");
+$(document).ready(() => {
+	if (window.alt1) {
+		// alt1.identifyAppUrl("./appconfig.json");
+		let timer = document.getElementById("beam_timer");
+		timer.innerText = '0.0s';
+
+	} else {
+		let addappurl = `alt1://addapp/${new URL("./appconfig.json", document.location.href).href}`;
+		var output = document.getElementById("output");
+		console.log(output);
+		output.innerHTML = `Alt1 not detected, click <a href='${addappurl}'>here</a> to add this app to Alt1`;
+	}
+});
+import { _timer } from "./timer.js";
+var beamTimer = new _timer(function (time) {
+	let secs_left: number = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
+	$("#beam_timer").html(secs_left + "s");
+	if (time <= 0) {
+		beamTimer.stop();
+	}
+});
 
 const appColor = A1lib.mixColor(0, 255, 0);
 let reader = new ChatBoxReader.default();
@@ -79,30 +100,9 @@ function snuffThemOut(lines) {
 		}
 	}
 }
-import { _timer } from "./timer.js";
-import * as $ from "./jquery.js";
-var beamTimer = new _timer(function (time) {
-	let secs_left: number = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
-	$("#beam_timer").html(secs_left + "s");
-	if (time <= 0) {
-		beamTimer.stop();
-	}
-});
-
 
 function readChatbox() {
 	var opts = reader.read() || [];
 	snuffThemOut(opts);
 }
 
-if (window.alt1) {
-	alt1.identifyAppUrl("./appconfig.json");
-
-
-} else {
-	let addappurl = `alt1://addapp/${new URL("./appconfig.json", document.location.href).href}`;
-	
-	output.insertAdjacentHTML("beforeend", `
-		Alt1 not detected, click <a href='${addappurl}'>here</a> to add this app to Alt1
-	`);
-}
