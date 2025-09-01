@@ -1,0 +1,16 @@
+{
+	"appName": "Tumeken Timer",
+	"description": "Tumeken timer",
+	"appUrl": "./index.html",
+	"configUrl": "./appconfig.json",
+	"iconUrl": "./icon.png",
+	"defaultWidth": 100,
+	"defaultHeight": 50,
+	"minWidth": 50,
+	"minHeight": 20,
+	"maxWidth": 400,
+	"maxHeight": 500,
+	"requestHandlers": [ ],
+	"activators": [	],
+	"permissions": "pixel,overlay,gamestate"
+}
