@@ -16,14 +16,13 @@ import * as $ from "./jquery.js";
 
 $(document).ready(() => {
 	if (window.alt1) {
-		// alt1.identifyAppUrl("./appconfig.json");
+		alt1.identifyAppUrl("./appconfig.json");
 		let timer = document.getElementById("beam_timer");
-		timer.innerText = '0.0s';
+		timer.innerText = '0s';
 
 	} else {
 		let addappurl = `alt1://addapp/${new URL("./appconfig.json", document.location.href).href}`;
 		var output = document.getElementById("output");
-		console.log(output);
 		output.innerHTML = `Alt1 not detected, click <a href='${addappurl}'>here</a> to add this app to Alt1`;
 	}
 });
@@ -92,7 +91,6 @@ function snuffThemOut(lines) {
 		if (line.text.includes("Your light will be snuffed out")) {
 			// index 1 is the timestamp, index 2 is the chat message
 			if (latestSnuffed !== line.fragments[1].text && latestSnuffed < line.fragments[1].text) {
-				console.log("Snuffed at: " + line.fragments[1].text);
 				latestSnuffed = line.fragments[1].text;
 				beamTimer.reset(90);
 				beamTimer.start(10);

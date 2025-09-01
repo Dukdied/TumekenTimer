@@ -4311,14 +4311,13 @@ __webpack_require__.r(__webpack_exports__);
 
 _jquery_js__WEBPACK_IMPORTED_MODULE_5__(document).ready(function () {
     if (window.alt1) {
-        // alt1.identifyAppUrl("./appconfig.json");
+        alt1.identifyAppUrl("./appconfig.json");
         var timer = document.getElementById("beam_timer");
-        timer.innerText = '0.0s';
+        timer.innerText = '0s';
     }
     else {
         var addappurl = "alt1://addapp/".concat(new URL("./appconfig.json", document.location.href).href);
         var output = document.getElementById("output");
-        console.log(output);
         output.innerHTML = "Alt1 not detected, click <a href='".concat(addappurl, "'>here</a> to add this app to Alt1");
     }
 });
@@ -4375,7 +4374,6 @@ function snuffThemOut(lines) {
         if (line.text.includes("Your light will be snuffed out")) {
             // index 1 is the timestamp, index 2 is the chat message
             if (latestSnuffed !== line.fragments[1].text && latestSnuffed < line.fragments[1].text) {
-                console.log("Snuffed at: " + line.fragments[1].text);
                 latestSnuffed = line.fragments[1].text;
                 beamTimer.reset(90);
                 beamTimer.start(10);
