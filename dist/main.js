@@ -4329,16 +4329,25 @@ var beamTimer = new _timer_js__WEBPACK_IMPORTED_MODULE_6__._timer(function (time
         beamTimer.stop();
     }
 });
+var fragTimer = new _timer_js__WEBPACK_IMPORTED_MODULE_6__._timer(function (time) {
+    var secs_left = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
+    _jquery_js__WEBPACK_IMPORTED_MODULE_5__("#frag_timer").html(secs_left + "s");
+    if (time <= 0) {
+        fragTimer.stop();
+    }
+});
 var appColor = alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor(0, 255, 0);
 var reader = new (alt1_chatbox__WEBPACK_IMPORTED_MODULE_1___default())();
 var latestSnuffed = "00:00:00";
+var latestInstance = "00:00:00";
 reader.readargs = {
     colors: [
         (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(255, 255, 255), // White (Timestamp)
         (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(127, 169, 255), // Blue (Timestamp)
         (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(69, 131, 145), // Blue (Amascut)
         (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(153, 255, 153), // Green (Amascut's Voice)
-        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(0, 255, 0) // Green (Friends Chat)
+        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(0, 255, 0), // Green (Friends Chat)
+        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(200, 50, 50) // Red (Expire thing)
     ],
 };
 function showSelectedChat(chat) {
@@ -4371,10 +4380,19 @@ function snuffThemOut(lines) {
     // Detect if any lines have "Your light will be snuffed out", and if so, print them to the console
     for (var _i = 0, lines_1 = lines; _i < lines_1.length; _i++) {
         var line = lines_1[_i];
+        if (line.text.includes("This arena will expire in")) {
+            latestInstance = line.fragments[1].text;
+            console.log("New Instance detected: " + latestInstance);
+        }
         if (line.text.includes("Your light will be snuffed out")) {
             // index 1 is the timestamp, index 2 is the chat message
             if (latestSnuffed !== line.fragments[1].text && latestSnuffed < line.fragments[1].text) {
                 latestSnuffed = line.fragments[1].text;
+                if (latestSnuffed > latestInstance && latestInstance != "00:00:00") {
+                    latestInstance = "00:00:00"; // Cringe solution
+                    fragTimer.reset(240);
+                    fragTimer.start(10);
+                }
                 beamTimer.reset(90);
                 beamTimer.start(10);
             }

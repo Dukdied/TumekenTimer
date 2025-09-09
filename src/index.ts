@@ -35,9 +35,19 @@ var beamTimer = new _timer(function (time) {
 	}
 });
 
+var fragTimer = new _timer(function (time) {
+	let secs_left: number = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
+	$("#frag_timer").html(secs_left + "s");
+	if (time <= 0) {
+		fragTimer.stop();
+	}
+});
+
 const appColor = A1lib.mixColor(0, 255, 0);
 let reader = new ChatBoxReader.default();
 let latestSnuffed = "00:00:00";
+let latestInstance = "00:00:00";
+
 
 reader.readargs = {
 	colors: [
@@ -45,7 +55,8 @@ reader.readargs = {
 		mixColor(127, 169, 255),    // Blue (Timestamp)
 		mixColor(69, 131, 145), // Blue (Amascut)
 		mixColor(153, 255, 153), // Green (Amascut's Voice)
-		mixColor(0, 255, 0) // Green (Friends Chat)
+		mixColor(0, 255, 0), // Green (Friends Chat)
+		mixColor(200,50,50) // Red (Expire thing)
 	],
 }
 
@@ -88,10 +99,19 @@ let findChat = setInterval(function () {
 function snuffThemOut(lines) {
 	// Detect if any lines have "Your light will be snuffed out", and if so, print them to the console
 	for (const line of lines) {
+		if (line.text.includes("This arena will expire in")) {
+			latestInstance = line.fragments[1].text;
+			console.log("New Instance detected: " + latestInstance);
+		}
 		if (line.text.includes("Your light will be snuffed out")) {
 			// index 1 is the timestamp, index 2 is the chat message
 			if (latestSnuffed !== line.fragments[1].text && latestSnuffed < line.fragments[1].text) {
 				latestSnuffed = line.fragments[1].text;
+				if(latestSnuffed > latestInstance && latestInstance != "00:00:00"){
+					latestInstance = "00:00:00"; // Cringe solution
+					fragTimer.reset(240);
+					fragTimer.start(10);
+				}
 				beamTimer.reset(90);
 				beamTimer.start(10);
 			}

@@ -2,42 +2,58 @@
 <html>
 
 <head>
-<style>
-	body {
-		background-color: #000;
-		color: #fff;
-		font-family: Arial, sans-serif;
-	}
+	<style>
+		body {
+			background-color: #000;
+			color: #fff;
+			font-family: Arial, sans-serif;
+		}
 
-	#beam_timer {
-		position: fixed;
-		top: 10px;
-		left: 10px;
-		z-index: 1000;
-	}
+		.timer_container {
+			position: fixed;
+			z-index: 1000;
+		}
 
-	#killStart {
-		position: fixed;
-		top: 10px;
-		right: 100px;
-		z-index: 1000;
-	}
-	#verified {
-		position: fixed;
-		top: 10px;
-		right: 10px;
-		z-index: 1000;
-		color: green;
-		font-weight: bold;
-	}
-</style>
-	
+		.timer_container.beam {
+			color: #39c139;
+			top: 10px;
+			left: 10px;
+		}
+		
+		.timer_container.fragment {
+			color: #c9a00a;
+			top: 30px;
+			left: 10px;
+		}
+
+		#killStart {
+			position: fixed;
+			top: 10px;
+			right: 100px;
+			z-index: 1000;
+		}
+
+		#verified {
+			position: fixed;
+			top: 10px;
+			right: 10px;
+			z-index: 1000;
+			color: green;
+			font-weight: bold;
+		}
+	</style>
+
 </head>
 
 <body>
 	<script src="./main.js"></script>
 	<div id="output"></div>
-	<span id="beam_timer" style="font-size:20x;font-weight: bold;"></span>
+	<div class="timer_container beam">
+		Green: <span id="beam_timer" style="font-size:20x;font-weight: bold;"></span>
+	</div>
+	<div class="timer_container fragment">
+		Swap: <span id="frag_timer" style="font-size:20x;font-weight: bold;">0s</span>
+	</div>
 	<span id="killStart"></span>
 	<span id="verified"></span>
 </body>
