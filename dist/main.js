@@ -4286,7 +4286,7 @@ var __webpack_exports__ = {};
   !*** ./index.ts ***!
   \******************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var alt1__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alt1 */ "../node_modules/alt1/dist/base/index.js");
+/* harmony import */ var alt1__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js");
 /* harmony import */ var alt1__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alt1__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var alt1_chatbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alt1/chatbox */ "../node_modules/alt1/dist/chatbox/index.js");
 /* harmony import */ var alt1_chatbox__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alt1_chatbox__WEBPACK_IMPORTED_MODULE_1__);
@@ -4298,6 +4298,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _timer_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./timer.js */ "./timer.js");
 // alt1 base libs, provides all the commonly used methods for image matching and capture
 // also gives your editor info about the window.alt1 api
+
 
 
 // tell webpack that this file relies index.html, appconfig.json and icon.png, this makes webpack
@@ -4346,12 +4347,12 @@ var latestSnuffed = "00:00:00";
 var latestInstance = "00:00:00";
 reader.readargs = {
     colors: [
-    // mixColor(255, 255, 255),    // White (Timestamp)
-    // mixColor(127, 169, 255),    // Blue (Timestamp)
-    // mixColor(69, 131, 145), // Blue (Amascut)
-    // mixColor(153, 255, 153), // Green (Amascut's Voice)
-    // mixColor(0, 255, 0), // Green (Friends Chat)
-    // mixColor(200,50,50) // Red (Expire thing)
+        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(255, 255, 255), // White (Timestamp)
+        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(127, 169, 255), // Blue (Timestamp)
+        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(69, 131, 145), // Blue (Amascut)
+        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(153, 255, 153), // Green (Amascut's Voice)
+        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(0, 255, 0), // Green (Friends Chat)
+        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(200, 50, 50) // Red (Expire thing)
     ],
 };
 function showSelectedChat(chat) {

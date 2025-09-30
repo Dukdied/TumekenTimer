@@ -57,12 +57,12 @@ let latestInstance = "00:00:00";
 
 reader.readargs = {
 	colors: [
-		// mixColor(255, 255, 255),    // White (Timestamp)
-		// mixColor(127, 169, 255),    // Blue (Timestamp)
-		// mixColor(69, 131, 145), // Blue (Amascut)
-		// mixColor(153, 255, 153), // Green (Amascut's Voice)
-		// mixColor(0, 255, 0), // Green (Friends Chat)
-		// mixColor(200,50,50) // Red (Expire thing)
+		mixColor(255, 255, 255),    // White (Timestamp)
+		mixColor(127, 169, 255),    // Blue (Timestamp)
+		mixColor(69, 131, 145), // Blue (Amascut)
+		mixColor(153, 255, 153), // Green (Amascut's Voice)
+		mixColor(0, 255, 0), // Green (Friends Chat)
+		mixColor(200,50,50) // Red (Expire thing)
 	],
 }
 
