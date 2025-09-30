@@ -4393,7 +4393,7 @@ function snuffThemOut(lines) {
                     fragTimer.reset(144);
                     fragTimer.start(10);
                 }
-                beamTimer.reset(90);
+                beamTimer.reset(180);
                 beamTimer.start(10);
             }
         }
