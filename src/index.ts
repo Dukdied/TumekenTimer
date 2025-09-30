@@ -109,10 +109,10 @@ function snuffThemOut(lines) {
 				latestSnuffed = line.fragments[1].text;
 				if(latestSnuffed > latestInstance && latestInstance != "00:00:00"){
 					latestInstance = "00:00:00"; // Cringe solution
-					fragTimer.reset(288);
+					fragTimer.reset(144);
 					fragTimer.start(10);
 				}
-				beamTimer.reset(90);
+				beamTimer.reset(180);
 				beamTimer.start(10);
 			}
 		}
