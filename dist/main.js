@@ -4323,8 +4323,14 @@ _jquery_js__WEBPACK_IMPORTED_MODULE_5__(document).ready(function () {
 });
 
 var beamTimer = new _timer_js__WEBPACK_IMPORTED_MODULE_6__._timer(function (time) {
-    var secs_left = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
-    _jquery_js__WEBPACK_IMPORTED_MODULE_5__("#beam_timer").html(secs_left + "s");
+    if (time >= 90) {
+        var secs_left = parseFloat((Math.floor((time / 2) / 600) * 0.6).toFixed(1));
+        _jquery_js__WEBPACK_IMPORTED_MODULE_5__("#beam_timer").html(secs_left + "s");
+    }
+    else {
+        var secs_left = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
+        _jquery_js__WEBPACK_IMPORTED_MODULE_5__("#beam_timer").html(secs_left + "s");
+    }
     if (time <= 0) {
         beamTimer.stop();
     }

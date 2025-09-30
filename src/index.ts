@@ -28,11 +28,17 @@ $(document).ready(() => {
 });
 import { _timer } from "./timer.js";
 var beamTimer = new _timer(function (time) {
-	let secs_left: number = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
-	$("#beam_timer").html(secs_left + "s");
+	if (time >= 90) {
+		let secs_left: number = parseFloat((Math.floor((time/2) / 600) * 0.6).toFixed(1));
+		$("#beam_timer").html(secs_left + "s");
+	} else {
+		let secs_left: number = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
+		$("#beam_timer").html(secs_left + "s");
+	}
 	if (time <= 0) {
 		beamTimer.stop();
 	}
+
 });
 
 var fragTimer = new _timer(function (time) {
