@@ -4286,7 +4286,7 @@ var __webpack_exports__ = {};
   !*** ./index.ts ***!
   \******************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var alt1__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js");
+/* harmony import */ var alt1__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alt1 */ "../node_modules/alt1/dist/base/index.js");
 /* harmony import */ var alt1__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alt1__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var alt1_chatbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alt1/chatbox */ "../node_modules/alt1/dist/chatbox/index.js");
 /* harmony import */ var alt1_chatbox__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alt1_chatbox__WEBPACK_IMPORTED_MODULE_1__);
@@ -4298,7 +4298,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _timer_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./timer.js */ "./timer.js");
 // alt1 base libs, provides all the commonly used methods for image matching and capture
 // also gives your editor info about the window.alt1 api
-
 
 
 // tell webpack that this file relies index.html, appconfig.json and icon.png, this makes webpack
@@ -4323,14 +4322,13 @@ _jquery_js__WEBPACK_IMPORTED_MODULE_5__(document).ready(function () {
 });
 
 var beamTimer = new _timer_js__WEBPACK_IMPORTED_MODULE_6__._timer(function (time) {
-    if (time >= 90) {
-        var secs_left = parseFloat((Math.floor((time / 2) / 600) * 0.6).toFixed(1));
-        _jquery_js__WEBPACK_IMPORTED_MODULE_5__("#beam_timer").html(secs_left + "s");
-    }
-    else {
-        var secs_left = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
-        _jquery_js__WEBPACK_IMPORTED_MODULE_5__("#beam_timer").html(secs_left + "s");
-    }
+    var secs_left;
+    if (time >= 90) // This is a workaround for Jagex removing exactly half of Amascut's chat messages.
+        secs_left = parseFloat((Math.floor((time - 90) / 600) * 0.6).toFixed(1));
+    else
+        secs_left = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
+    console.log(secs_left);
+    _jquery_js__WEBPACK_IMPORTED_MODULE_5__("#beam_timer").html(secs_left + "s");
     if (time <= 0) {
         beamTimer.stop();
     }
@@ -4348,12 +4346,12 @@ var latestSnuffed = "00:00:00";
 var latestInstance = "00:00:00";
 reader.readargs = {
     colors: [
-        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(255, 255, 255), // White (Timestamp)
-        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(127, 169, 255), // Blue (Timestamp)
-        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(69, 131, 145), // Blue (Amascut)
-        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(153, 255, 153), // Green (Amascut's Voice)
-        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(0, 255, 0), // Green (Friends Chat)
-        (0,alt1__WEBPACK_IMPORTED_MODULE_0__.mixColor)(200, 50, 50) // Red (Expire thing)
+    // mixColor(255, 255, 255),    // White (Timestamp)
+    // mixColor(127, 169, 255),    // Blue (Timestamp)
+    // mixColor(69, 131, 145), // Blue (Amascut)
+    // mixColor(153, 255, 153), // Green (Amascut's Voice)
+    // mixColor(0, 255, 0), // Green (Friends Chat)
+    // mixColor(200,50,50) // Red (Expire thing)
     ],
 };
 function showSelectedChat(chat) {
@@ -4386,6 +4384,7 @@ function snuffThemOut(lines) {
     // Detect if any lines have "Your light will be snuffed out", and if so, print them to the console
     for (var _i = 0, lines_1 = lines; _i < lines_1.length; _i++) {
         var line = lines_1[_i];
+        console.log(line);
         if (line.text.includes("This arena will expire in")) {
             latestInstance = line.fragments[1].text;
             console.log("New Instance detected: " + latestInstance);

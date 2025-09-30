@@ -28,13 +28,13 @@ $(document).ready(() => {
 });
 import { _timer } from "./timer.js";
 var beamTimer = new _timer(function (time) {
-	if (time >= 90) {
-		let secs_left: number = parseFloat((Math.floor((time/2) / 600) * 0.6).toFixed(1));
-		$("#beam_timer").html(secs_left + "s");
-	} else {
-		let secs_left: number = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
-		$("#beam_timer").html(secs_left + "s");
-	}
+	let secs_left: number;
+	if (time >= 90) // This is a workaround for Jagex removing exactly half of Amascut's chat messages.
+		secs_left = parseFloat((Math.floor((time - 90) / 600) * 0.6).toFixed(1));
+	 else
+		secs_left = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
+	console.log(secs_left);
+	$("#beam_timer").html(secs_left + "s");
 	if (time <= 0) {
 		beamTimer.stop();
 	}
@@ -57,12 +57,12 @@ let latestInstance = "00:00:00";
 
 reader.readargs = {
 	colors: [
-		mixColor(255, 255, 255),    // White (Timestamp)
-		mixColor(127, 169, 255),    // Blue (Timestamp)
-		mixColor(69, 131, 145), // Blue (Amascut)
-		mixColor(153, 255, 153), // Green (Amascut's Voice)
-		mixColor(0, 255, 0), // Green (Friends Chat)
-		mixColor(200,50,50) // Red (Expire thing)
+		// mixColor(255, 255, 255),    // White (Timestamp)
+		// mixColor(127, 169, 255),    // Blue (Timestamp)
+		// mixColor(69, 131, 145), // Blue (Amascut)
+		// mixColor(153, 255, 153), // Green (Amascut's Voice)
+		// mixColor(0, 255, 0), // Green (Friends Chat)
+		// mixColor(200,50,50) // Red (Expire thing)
 	],
 }
 
@@ -105,6 +105,7 @@ let findChat = setInterval(function () {
 function snuffThemOut(lines) {
 	// Detect if any lines have "Your light will be snuffed out", and if so, print them to the console
 	for (const line of lines) {
+		console.log(line);
 		if (line.text.includes("This arena will expire in")) {
 			latestInstance = line.fragments[1].text;
 			console.log("New Instance detected: " + latestInstance);
