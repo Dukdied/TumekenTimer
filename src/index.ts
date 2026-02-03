@@ -33,7 +33,6 @@ var beamTimer = new _timer(function (time) {
 		secs_left = parseFloat((Math.floor((time - 90) / 600) * 0.6).toFixed(1));
 	 else
 		secs_left = parseFloat((Math.floor(time / 600) * 0.6).toFixed(1));
-	console.log(secs_left);
 	$("#beam_timer").html(secs_left + "s");
 	if (time <= 0) {
 		beamTimer.stop();
@@ -82,9 +81,11 @@ function showSelectedChat(chat) {
 }
 // Find all visible chatboxes on screen
 let findChat = setInterval(function () {
+	console.log("Finding chatbox...");
 	if (reader.pos === null)
 		reader.find();
 	else {
+		console.log("Chatbox found.");
 		clearInterval(findChat);
 
 		if (localStorage.ccChat) {
@@ -105,7 +106,6 @@ let findChat = setInterval(function () {
 function snuffThemOut(lines) {
 	// Detect if any lines have "Your light will be snuffed out", and if so, print them to the console
 	for (const line of lines) {
-		console.log(line);
 		if (line.text.includes("This arena will expire in")) {
 			latestInstance = line.fragments[1].text;
 			console.log("New Instance detected: " + latestInstance);
